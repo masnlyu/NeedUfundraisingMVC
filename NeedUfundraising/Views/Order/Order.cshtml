@@ -1,0 +1,90 @@
+﻿@{
+}
+<div class="col-10">
+	<div class="px-3">
+		<div class="item-style bg-white ">
+			<!-- ===============================================================================================================  -->
+			<div class="min-vh-100">
+				<div class="card-header py-3 mb-3">
+					<h3 class="m-0">贊助查詢</h6>
+				</div>
+				<div class="row justify-content-center p-3">
+					<div class="mb-3 col-12">
+						<form>
+							<fieldset>
+								<legend onclick=app.enterText()>查詢條件</legend>
+								<div class="d-flex py-3">
+									<div class="">
+										<label class="px-3" for="">提案狀態:</label>
+										<select name="" id="" style="width: 100px; height: 100%;"
+												v-model="input.orderStateId">
+											<option value="全部">全部</option>
+											<option value="募資中">募資中</option>
+											<option value="生產階段">生產階段</option>
+											<option value="寄送階段">寄送階段</option>
+											<option value="募資成功">募資成功</option>
+											<option value="募資失敗">募資失敗</option>
+											<option value="取消申請中">取消申請中</option>
+											<option value="確認取消">確認取消</option>
+										</select>
+									</div>
+									<div class="">
+										<label class="px-3" for="">編號:</label>
+										<input type="text" v-model="input.orderId" style="padding: 5px;">
+									</div>
+									<div class="">
+										<label class="px-3" for="">提案名稱:</label>
+										<input type="text" v-model="input.productTitle" style="padding: 5px;">
+									</div>
+									<div class="ml-3">
+										<a class="btn btn-success" v-on:click="inputRest">清除</a>
+									</div>
+							</fieldset>
+						</form>
+					</div>
+					<div class="col-12" id="myTabContent">
+						<div v-cloak>查詢結果:共{{orderIdChange.length}}項</div>
+						<div class="tab-pane fade show active" id="home" role="tabpanel"
+							 aria-labelledby="home-tab">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th class="col-1">編號</th>
+										<th>提案名稱</th>
+										<th>方案內容</th>
+										<th>訂單時間</th>
+										<th class="col-2">訂單狀態</th>
+										<th class="col-1">操作</th>
+									</tr>
+								</thead>
+								<tbody class="">
+									<tr v-for="item in orderIdChange">
+										<th v-cloak>{{item.orderId}}</th>
+										<td v-cloak>{{item.productTitle}}</td>
+										<td v-cloak>{{item.planTitle}}</td>
+										<td v-cloak>{{item.purchaseTime}}</td>
+										<td v-cloak>{{item.orderStateId}}</td>
+										<td v-cloak v-if="item.orderStateId == '取消申請中'">
+											<a class="btn btn-danger"
+											   href='./checkrefund.html'
+											   v-on:click="checkOlist(item.orderId)">編輯</a>
+										</td>
+										<td v-cloak v-else>
+											<a class="btn btn-outline-success"
+											   href='./Odetails.html'
+											   v-on:click="checkOlist(item.orderId)">查看</a>
+										</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ===============================================================================================================  -->
+
+		</div>
+	</div>
+
+</div>

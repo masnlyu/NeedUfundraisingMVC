@@ -1,0 +1,144 @@
+﻿@{
+}
+<div class="col-10">
+	<div class="px-3">
+		<div class="bg-white item-style mb-5">
+			<!-- ===============================================================================================================  -->
+			<div class="">
+				<div class="card-header py-3 mb-3">
+					<h3 class="m-0">會員查詢</h6>
+				</div>
+				<div class="row justify-content-center p-3">
+					<div class="mb-3 col-12">
+						<form>
+							<fieldset>
+								<legend onclick=app.enterText()>查詢條件</legend>
+								<div class="d-flex py-3">
+									<div class="">
+										<label class="px-3" for="">會員編號:</label>
+										<input type="text" v-model="input.userId" style="padding: 5px;">
+									</div>
+									<div class="">
+										<label class="px-3" for="">會員資訊:</label>
+										<input type="text" v-model="input.userinfo" style="padding: 5px;" placeholder="輸入姓名 / Email / 電話">
+									</div>
+									<div class="ml-3">
+										<a class="btn btn-success" v-on:click="inputRest">清除</a>
+									</div>
+							</fieldset>
+						</form>
+					</div>
+					<div class="py-0 col-12 mb-5">
+
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th class="col-1">編號</th>
+									<th class="col-2">會員姓名</th>
+									<th class="col-3">Email</th>
+									<th class="col-2">電話</th>
+									<th class="col-2">加入時間</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody class="">
+								<tr v-for="item in userinfoChange">
+									<td v-cloak>{{item.userId}}</td>
+									<td v-cloak>{{item.userName}}</td>
+									<td v-cloak>{{item.userEmail}}</td>
+									<td v-cloak>{{item.userPhone}}</td>
+									<td v-cloak>{{item.createDate.substring(0,10)}}</td>
+									<td v-cloak>
+										<a class="btn btn-outline-success" data-toggle="modal"
+										   data-target="#exampleModal"
+										   v-on:click="getuserinfo(item.userId)">詳細內容 </a>
+									</td>
+
+								</tr>
+								<!-- <tr>
+									<td>005</td>
+									<td>Mark</td>
+									<td>馬克杯</td>
+									<td>2022-12-29</td>
+									<td><a class="btn btn-outline-success" data-toggle="modal"
+											data-target="#exampleModal">詳細內容 </a></td>
+
+								</tr> -->
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- ===============================================================================================================  -->
+			</div>
+		</div>
+		<!-- Button trigger modal -->
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered  ">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">會員資訊</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body px-3">
+						<div class="row  justify-content-center mb-3 px-5">
+							<div class="col-4 p-0">
+								<img :src="userinfo.userPhoto"
+									 style="width: 150px;height: 150px;object-fit: cover;border-radius: 50%;" alt="">
+								<div class="h-100">
+									<label for="">簡介:</label><br>
+									<p style="border: 1px #80808057 solid;
+                                                        border-radius: 5px;
+                                                        padding: 5px; min-height: 180px;">{{userinfo.userIntro}}</p>
+								</div>
+							</div>
+							<div class="col-8 ">
+								<div class="">
+									<label for="" class="mb-0">會員編號:</label><br>
+									<p style="border: 1px #80808057 solid;
+                                                        border-radius: 5px;
+                                                        padding: 5px;" class="mb-0">{{userinfo.userId}}</p>
+								</div>
+								<div>
+									<label for="" class="mb-0">會員姓名:</label><br>
+									<p style="border: 1px #80808057 solid;
+                                                        border-radius: 5px;
+                                                        padding: 5px;" class="mb-0">{{userinfo.userName}}</p>
+								</div>
+								<div class="">
+									<label for="" class="mb-0">性別:</label><br>
+									<p style="border: 1px #80808057 solid;
+                                                        border-radius: 5px;
+                                                        padding: 5px;" class="mb-0" v-if="userinfo.userGender">男</p>
+									<p style="border: 1px #80808057 solid;
+                                                        border-radius: 5px;
+                                                        padding: 5px;" class="mb-0" v-else>女</p>
+								</div>
+								<div class="">
+									<label for="" class="mb-0">生日:</label><br>
+									<p style="border: 1px #80808057 solid;
+                                                        border-radius: 5px;
+                                                        padding: 5px;" class="mb-0">{{userinfo.userBirthday}}</p>
+								</div>
+								<div class="">
+									<label for="" class="mb-0">會員信箱:</label><br>
+									<p style="border: 1px #80808057 solid;
+                                                        border-radius: 5px;
+                                                        padding: 5px;" class="mb-0">{{userinfo.userEmail}}</p>
+								</div>
+								<div>
+									<label for="" class="mb-0">會員電話:</label><br>
+									<p style="border: 1px #80808057 solid;
+                                                        border-radius: 5px;
+                                                        padding: 5px;" class="mb-0">{{userinfo.userPhone}}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

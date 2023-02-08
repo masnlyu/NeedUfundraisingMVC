@@ -1,0 +1,49 @@
+﻿@{
+	Layout = "~/Views/Shared/_LoginLayout.cshtml";
+	var message = ViewData["error"]; 
+	
+}
+
+<div id="">
+	<div class="container text-center pt-5">
+		<img src="../img/brand.png" alt="" style="height: 100px; width: 300px;">
+		<h1 class="mt-auto pt-3">後台管理系統</h1>
+		<div class="row justify-content-center ">
+			<div class="col-lg-6 bg-white  item-style" style="max-width: 430px;">
+				<div class="p-4">
+					<div class="text-center">
+						<h1 class="h4 mb-4 font-weight-bold" onclick=enterText()>登入頁面</h1>
+					</div>
+					<form class="user" action="/Login" method="post">
+						<div class="form-group">
+							<input type="text" class="form-control" id="account" placeholder="請輸入帳號" name="username">
+							@{
+								if ((string)ViewData["error"] != "")
+								{
+									<p>123</p>
+								}
+							}
+						</div>
+						<div class="form-group">
+							<input type="password" class="form-control" id="password" placeholder="請輸入密碼" name="password">
+						</div>
+						<hr>
+							@{
+								if ((string)ViewData["error"] == "")
+								{
+									<p>123</p>
+								}}
+						<input type="submit" value="登入" class="btn btn-block btn-success">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	
+	function enterText() {
+		document.getElementById("account").value = "admin";
+		document.getElementById("password").value = "admin";
+	}
+</script>

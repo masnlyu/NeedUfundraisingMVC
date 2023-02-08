@@ -1,0 +1,204 @@
+﻿@{
+}
+<div class="col-10">
+    <div class="px-3">
+        <div class="bg-white item-style mb-5">
+            <!-- ===============================================================================================================  -->
+            <div class="">
+                <div class="card-header py-3 mb-3">
+                    <h3 class="m-0">員工查詢</h3>
+                </div>
+                <div class="row justify-content-center p-3">
+                    <div class="mb-3 col-12">
+                        <form>
+                            <fieldset>
+                                <legend onclick=app.enterText()>查詢條件</legend>
+                                <div class="d-flex py-3">
+                                    <div class="mx-3">
+                                        <select name="" id=""
+                                                style="height: 38px; border-radius: 5px;"
+                                                v-model="input.employeestatus">
+                                            <option value="任職狀態">任職狀態</option>
+                                            <option value="在職">在職</option>
+                                            <option value="離職">離職</option>
+                                            <option value="留職停薪">留職停薪</option>
+                                        </select>
+                                    </div>
+                                    <div class="pr-3">
+
+                                        <input type="text" v-model="input.employeeinfo"
+                                               placeholder="搜尋員工姓名 / Email / 電話"
+                                               style="min-width: 300px; height: 100%;">
+                                    </div>
+                                    <div class="ml-3">
+                                        <a class="btn btn-success" v-on:click="inputRest">清除</a>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="py-0 col-12 mb-5">
+                        <div class="text-right pr-3">
+                            <button type="button" class="btn btn-success px-4 mb-3"
+                                    data-toggle="modal" data-target="#staticBackdrop">
+                                新增
+                            </button>
+                        </div>
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="col-2">姓名</th>
+                                    <th class="col-2">Email</th>
+                                    <th class="col-2">電話</th>
+                                    <th class="col-2">性別</th>
+                                    <th class="col-2">職位</th>
+                                    <th class="col-1">任職狀態</th>
+                                    <th class="col-1"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="">
+                                <tr v-for="item in userNameChange">
+                                    <td v-cloak>{{item.name}}</td>
+                                    <td v-cloak>{{item.email}}</td>
+                                    <td v-cloak>{{item.phone}}</td>
+                                    <td v-cloak>{{item.sexy}}</td>
+                                    <td v-cloak>{{item.position}}</td>
+                                    <td v-cloak>{{item.status}}</td>
+                                    <td>
+                                        <a class="btn btn-primary" data-toggle="modal"
+                                           data-target="#editmodal" v-on:click="edit(item)">編輯</a>
+                                    </td>
+                                </tr>
+                                <!-- <tr>
+                                    <td>Mark</td>
+                                    <td>Mark005@gmail.com</td>
+                                    <td>0999887766</td>
+                                    <td>男</td>
+                                    <td>主管</td>
+                                    <td>在職</td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- <button id="demo7">Demo 7</button> -->
+                <!-- ===============================================================================================================  -->
+            </div>
+        </div>
+        <!-- Button trigger modal -->
+        <!-- Modal -->
+        <!-- 新增 -->
+        <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false"
+             tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered " style=" max-width: 550px;">
+                <div class="modal-content" style="border-radius: 5px; border: 0px;">
+                    <div class="modal-body px-4">
+                        <label for="" onclick=app.addemployeeText()>帳號*</label> <br>
+                        <input type="text" class="w-100 mb-1" name="account" placeholder="請輸入6位英數字"
+                               v-model="addemployee.account">
+                        <label for="">密碼*</label> <br>
+                        <input type="password" class="w-100 mb-1" name="password"
+                               placeholder="請輸入6位數字碼" v-model="addemployee.password">
+                        <label for="">姓名*</label> <br>
+                        <input type="text" class="w-100 mb-1" name="name" placeholder="輸入姓名"
+                               required v-model="addemployee.name">
+                        <label for="">Email</label> <br>
+                        <input type="text" class="w-100 mb-1" name="Email" placeholder="輸入電子信箱"
+                               v-model="addemployee.email">
+                        <label for="">電話</label> <br>
+                        <input type="text" class="w-100 mb-1" name="phone" placeholder="輸入電話"
+                               v-model="addemployee.phone">
+                        <label for="">性別</label> <br>
+                        <input type="radio" value=1 id="man" name="sexy" checked
+                               v-model="addemployee.sexy">
+                        <label for="man" class="mr-3">男</label>
+                        <input type="radio" value=0 id="woman" name="sexy"
+                               v-model="addemployee.sexy">
+                        <label for="woman">女</label><br>
+                        <label for="">職位</label> <br>
+                        <select name="positions" id="" class="mb-1 w-100"
+                                v-model="addemployee.position">
+                            <option value="" selected disabled>請選擇</option>
+                            <option value="1">主管</option>
+                            <option value="2">行政人員</option>
+                            <option value="3">會計人員</option>
+                            <option value="4">人事HR</option>
+                        </select><br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-success" data-dismiss="modal"
+                                v-on:click="opensweet">
+                            儲存
+                        </button>
+                        <button type="button" class="btn btn-outline-danger"
+                                data-dismiss="modal">
+                            取消
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 編輯 -->
+        <div class="modal fade" id="editmodal" data-backdrop="static" data-keyboard="false"
+             tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered " style=" max-width: 550px;">
+                <div class="modal-content" style="border-radius: 5px; border: 0px;">
+                    <div class="modal-body px-4">
+                        <label for="">帳號*</label> <br>
+                        <input type="text" class="w-100 mb-1" name="account" placeholder="請輸入6位英數字"
+                               v-model="editemployee.account" disabled>
+                        <label for="">密碼*</label> <br>
+                        <input type="password" class="w-100 mb-1" name="password"
+                               placeholder="請輸入6位數字碼" v-model="editemployee.password">
+                        <label for="">姓名*</label> <br>
+                        <input type="text" class="w-100 mb-1" name="name" placeholder="輸入姓名"
+                               required v-model="editemployee.name">
+                        <label for="">Email</label> <br>
+                        <input type="text" class="w-100 mb-1" name="Email" placeholder="輸入電子信箱"
+                               v-model="editemployee.email">
+                        <label for="">電話</label> <br>
+                        <input type="text" class="w-100 mb-1" name="phone" placeholder="輸入電話"
+                               v-model="editemployee.phone">
+                        <label for="">性別</label> <br>
+                        <input type="radio" value="男" id="man" name="sexy" checked
+                               v-model="editemployee.sexy" disabled>
+                        <label for="man" class="mr-3">男</label>
+                        <input type="radio" value="女" id="woman" name="sexy"
+                               v-model="editemployee.sexy" disabled>
+                        <label for="woman">女</label><br>
+                        <label for="">職位</label> <br>
+                        <select name="positions" id="" class="mb-1 w-100"
+                                v-model="editemployee.position">
+                            <option value="" selected disabled>請選擇</option>
+                            <option value="主管">主管</option>
+                            <option value="行政人員">行政人員</option>
+                            <option value="會計人員">會計人員</option>
+                            <option value="人事HR">人事HR</option>
+                        </select><br>
+                        <label for="">任職狀態</label> <br>
+                        <select name="positions" id="" class="mb-1 w-100"
+                                v-model="editemployee.status">
+                            <option value="" selected disabled>請選擇</option>
+                            <option value="在職">在職</option>
+                            <option value="離職">離職</option>
+                            <option value="留職停薪">留職停薪</option>
+
+                        </select><br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-success" data-dismiss="modal"
+                                v-on:click="sendEdit">
+                            修改
+                        </button>
+                        <button type="button" class="btn btn-outline-danger"
+                                data-dismiss="modal">
+                            取消
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- 結束 主要內容 -->
+</div>

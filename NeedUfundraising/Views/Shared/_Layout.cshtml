@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	@*<title>@ViewData["Title"] - NeedUfundraising</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" />*@
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<title>Back-Dashboard</title>
+
+	<link href="~/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+	<link href="~/css/sb-admin-2.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="~/css/mystyle.css">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3"></script>
+	<link href="https://cdn.jsdelivr.net/npm/vue-loading-overlay@3/dist/vue-loading.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	@*<script src="./js/logincheck.js"></script>*@
+
+</head>
+<body>
+	<div id="app">
+		<loading :can-cancel="true"></loading>
+		<div class="container-fluid p-0 bg-theme">
+			<!-- 導覽列 -->
+			<header id="page-top">
+				<nav class="navbar navbar-expand navbar-light  static-top " style="margin: auto;max-width: 80%;">
+					<div class="px-5 mr-auto d-flex">
+						<a href=@Url.Action("index","Home") style="text-decoration: none;display:block;"><img src="~/img/brand.png" style="width:200px"></a>
+						<span class="mt-auto color-theme">後臺管理系統</span>
+					</div>
+					<!-- 導覽列右邊 -->
+					<!-- 導覽收尋欄-->
+					<div class="row">
+						<!-- 使用者資訊 -->
+						<div class="nav-item dropdown no-arrow">
+							<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+							   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<span class="mr-2 d-none d-lg-inline ">{{employeeinfo.name}}</span>
+								<img class="img-profile rounded-circle imgset" :src="employeeinfo.employeephoto" style="border: 1px solid white;">
+							</a>
+							<!-- 下拉清單 -->
+							<div class="dropdown-menu  shadow animated--grow-in"
+								 aria-labelledby="userDropdown">
+								<a class="dropdown-item" href="/Profile/Profile">
+									<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+									個人資料
+								</a>
+								<div class="dropdown-divider"></div>
+								<a href="" class="dropdown-item" v-on:click="logout()">
+									<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+									登出
+								</a>
+							</div>
+						</div>
+
+						</ul>
+					</div>
+				</nav>
+			</header>
+			<!-- 結束 導覽列 -->
+			<div class=" container-fluid px-5 pt-4 pb-3">
+				<div class="row justify-content-center">
+					<!-- 側邊欄位 -->
+					<ul class="navbar-nav bg-white col-2 item-style sidebar " id="accordionSidebar"
+						style="max-height: 650px;min-height:650px">
+						<br>
+						<div id="mysider">
+							<div class="sidebar-heading">
+								控制面板
+							</div>
+
+						<li class="nav-item ">
+							<a class="nav-link" href=@Url.Action("index","Home")>
+								<i class="fas fa-fw fa-tachometer-alt"></i>
+								<span>後台總覽</span>
+							</a>
+						</li>
+
+
+						<hr class="sidebar-divider">
+						<div class="sidebar-heading">
+							提案相關
+						</div>
+						<li class="nav-item ">
+							<a class="nav-link" href=@Url.Action("Product","Product")>
+								<i class="fa fa-list" aria-hidden="true"></i>
+								<span>提案管理</span>
+							</a>
+
+						</li>
+						<hr class="sidebar-divider">
+						<div class="sidebar-heading">
+							贊助中心
+						</div>
+						<li class="nav-item ">
+							<a class="nav-link" href=@Url.Action("Order","Order")>
+								<i class="fa fa-list-alt" aria-hidden="true"></i>
+								<span>贊助管理</span>
+							</a>
+						</li>
+
+						<hr class="sidebar-divider">
+						<div class="sidebar-heading">
+							會員相關
+						</div>
+						<li class="nav-item ">
+							<a class="nav-link" href=@Url.Action("Message","Message")>
+								<i class="fa fa-comments" aria-hidden="true"></i>
+								<span>留言管理</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link collapsed w-100" href=@Url.Action("Member","Member")>
+								<i class="fas fa-fw fa-folder"></i>
+								<span>會員列表</span>
+							</a>
+						</li>
+						<hr class="sidebar-divider">
+						<div class="sidebar-heading">
+							後台管理
+						</div>
+						<li class="nav-item ">
+							<a class="nav-link" href=@Url.Action("Employee","Employee")>
+								<i class="fa fa-solid fa-file"></i>
+								<span>員工管理</span>
+							</a>
+						</li>
+						<li class="nav-item ">
+							<a class="nav-link" href=@Url.Action("Profile","Profile")>
+								<i class="fa fa-user" aria-hidden="true"></i>
+								<span>個人資料</span>
+							</a>
+						</li>
+					</ul>
+
+					<!--主要內容 -->
+					@RenderBody()
+					<!--主要內容 -->
+				</div>
+			</div>
+		</div>
+		<footer class="p-4 ">
+			<div class="container my-auto">
+				<div class="copyright text-center my-auto">
+					<span class="color-theme fs-b">Copyright &copy;needU募資平台 2023</span>
+				</div>
+			</div>
+		</footer>
+		<a class="scroll-to-top rounded" href="#page-top">
+			<i class="fas fa-angle-up"></i>
+		</a>
+	</div>
+	<script src="~/vendor/jquery/jquery.min.js"></script>
+	<script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="~/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<script src="~/js/sb-admin-2.min.js"></script>
+
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

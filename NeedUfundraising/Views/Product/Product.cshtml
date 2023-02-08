@@ -1,0 +1,99 @@
+﻿@{
+}
+<div class="col-10">
+	<div class="px-3">
+		<div class="bg-white item-style ">
+			<!-- ===============================================================================================================  -->
+			<div class="min-vh-100 ">
+				<div class="card-header py-3 mb-3">
+					<h3 class="m-0">提案查詢</h6>
+				</div>
+				<div class="row justify-content-center p-3">
+
+					<div class="mb-3 col-12">
+						<form>
+							<fieldset>
+								<legend onclick=app.enterText()>查詢條件</legend>
+								<div class="d-flex py-3">
+									<div class="">
+										<label class="px-3" for="">提案狀態:</label>
+										<select name="productStateId" id="productStateId"
+												style="width: 100px; height: 100%;"
+												v-model="input.productStateId">
+											<option value="全部">全部</option>
+											<option value="審核中">審核中</option>
+											<option value="審核不通過">審核不通過</option>
+											<option value="募資中">募資中</option>
+											<option value="募資失敗">募資失敗</option>
+											<option value="募資成功">募資成功</option>
+										</select>
+									</div>
+									<div class="" v-show="false">
+										<label class="px-3" for="">編號:</label>
+										<input type="text" id="productId" name="productId"
+											   v-model.trim="input.productId" style="padding: 5px;">
+									</div>
+									<div class="">
+										<label class="px-3" for="">提案名稱:</label>
+										<input type="text" id="productTitle" name="productTitle"
+											   v-model.trim="input.productTitle" style="padding: 5px;">
+									</div>
+									<div class="ml-3">
+										<a class="btn btn-success" v-on:click="inputRest">清除</a>
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+					<div class="col-12">
+						<div v-cloak>查詢結果:共{{Idchange.length}}項</div>
+						<div class="table-responsive">
+							<table class="table table-bordered table-hover" id="dataTable"
+								   width="100%" cellspacing="0">
+								<thead>
+									<tr>
+										<th class="col-1">提案編號</th>
+										<th class="col-1">負責人</th>
+										<th>圖片</th>
+										<th>提案名稱</th>
+										<th class="col-1">狀態</th>
+										<th class="col-1">操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr v-for="item in Idchange">
+										<td v-cloak>{{item.p.productId}}</td>
+										<td v-cloak>{{item.p.principalName}}</td>
+										<td v-cloak class="col-1 p-1">
+											<img :src="item.p.coverphoto"
+												 alt="" style=" width: 100%;">
+										</td>
+										<td v-cloak>{{item.p.productTitle}}</td>
+										<td v-cloak>{{item.p.productStateId}}</td>
+										<td v-cloak v-if="item.p.productStateId == '審核中'">
+											<div>
+												<a href="./PdetailsEdit.html"
+												   class="btn btn-success"
+												   v-on:click="checkmenber(item.p.productId)">編輯</a>
+											</div>
+										</td>
+										<td v-cloak v-else>
+											<div>
+												<a href="./PdetailsView.html"
+												   class="btn btn-outline-success"
+												   v-on:click="checkmenber(item.p.productId)">查看</a>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ===============================================================================================================  -->
+		</div>
+	</div>
+</div>
+
+</div>
